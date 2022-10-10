@@ -17,7 +17,7 @@ module.exports = {
         .required(),
       expirationYear: Joi.string().length(4).required(),
       expirationMonth: Joi.string().length(2).required(),
-      header_token: Joi.string().required()
+      headerToken: Joi.string().required()
     });
     await AppValidator.validate(schema, payload).catch((reason) => {
       new CustomException(

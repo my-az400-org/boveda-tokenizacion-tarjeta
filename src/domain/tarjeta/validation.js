@@ -11,7 +11,7 @@ module.exports = {
 
   async obtenerTarjeta(payload) {
     const schema = Joi.object().keys({
-      header_token: Joi.string().length(16).required()
+      headerToken: Joi.string().length(16).required()
     });
 
     await AppValidator.validate(schema, payload).catch((reason) => {

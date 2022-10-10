@@ -11,9 +11,9 @@ module.exports = {
     console.log('service: obtenerTarjeta');
     let errorMessage = null;
     try {
-      const { token } = event;
+      const { headerToken } = event;
 
-      const dataTarjeta = await DataAccess.obtenerInfoTarjeta({ token });
+      const dataTarjeta = await DataAccess.obtenerInfoTarjeta({ token: headerToken });
 
       // validacion username único
       if (!dataTarjeta) {

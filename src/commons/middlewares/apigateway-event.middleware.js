@@ -77,7 +77,7 @@ module.exports = (options) => {
             headerToken = event.authorizationToken;
           }
           if (headerToken) {
-            payload.header_token = headerToken.replace('Bearer ', '');
+            payload.headerToken = headerToken.replace('Bearer ', '');
             // payload.
             // const decoded = await jwt.decode(headerToken, { complete: true });
             // console.log('API Gateway decoded: ', decoded);
