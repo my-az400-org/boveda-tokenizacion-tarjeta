@@ -1,0 +1,31 @@
+tokenizacion:
+  handler: src/domain/tokenizacion/app.handler
+  name: culqi-tokenizacion-${self:custom.currentStage}
+  description: Lambda de tokenizacion
+  events:
+    - http:
+        path: /token/generar
+        method: post
+        integration: lambda
+        # authorizer: ${self:custom.authorizer}
+        cors: ${file(config/serverless/http-cors.yaml)}
+        request:
+          template:
+            application/json: ${file(config/serverless/request/generarToken.vm)}
+        response: ${file(config/serverless/http-response.yaml)}
+
+tarjeta:
+  handler: src/domain/tarjeta/app.handler
+  name: culqi-tarjeta-${self:custom.currentStage}
+  description: Lambda de gestión de tarjetas
+  events:
+    - http:
+        path: /tarjeta/obtener
+        method: post
+        integration: lambda
+        # authorizer: ${self:custom.authorizer}
+        cors: ${file(config/serverless/http-cors.yaml)}
+        request:
+          template:
+            application/json: ${file(config/serverless/request/obtenerTarjeta.vm)}
+        response: ${file(config/serverless/http-response.yaml)}

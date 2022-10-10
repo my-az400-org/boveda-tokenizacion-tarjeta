@@ -1,0 +1,29 @@
+#set($inputError = $input.path('$.errorMessage'))
+#if( "$!inputError" == "" )
+  #set($inputRoot = $input.path('$'))
+  $inputRoot
+#else
+  #set($errorJson = $input.json('$.errorMessage'))
+  #if($errorJson.matches('.*\\"httpStatus\\":400.*'))
+    #set($context.responseOverride.status = 400)
+    $inputError
+  #elseif($errorJson.matches('.*\\"httpStatus\\":401.*'))
+    #set($context.responseOverride.status = 401)
+    $inputError
+   #elseif($errorJson.matches('.*\\"httpStatus\\":402.*'))
+    #set($context.responseOverride.status = 402)
+    $inputError
+  #elseif($errorJson.matches('.*\\"httpStatus\\":403.*'))
+    #set($context.responseOverride.status = 403)
+    $inputError
+  #elseif($errorJson.matches('.*\\"httpStatus\\":404.*'))
+    #set($context.responseOverride.status = 404)
+    $inputError
+  #elseif($errorJson.matches('.*\\"httpStatus\\":422.*'))
+    #set($context.responseOverride.status = 422)
+    $inputError
+  #else
+    #set($context.responseOverride.status = 500)
+    $inputError
+  #end
+#end

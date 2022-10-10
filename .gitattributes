@@ -1,0 +1,5 @@
+#para windows y unix
+*.js text=auto eol=crlf
+*.js text=auto eol=crlf
+*.ts text=auto eol=crlf
+*.tsx text=auto eol=crlf

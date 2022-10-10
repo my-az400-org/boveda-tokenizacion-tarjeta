@@ -1,0 +1,49 @@
+{
+  "name": "boveda-culqi-test",
+  "version": "1.0.0",
+  "description": "Test técnico de tokenización de tarjeta bancarias",
+  "main": "src/domain/[...]/app.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "lint": "eslint --fix . --ext .js,.ts,.tsx -f codeframe",
+    "start": "serverless offline start --stage dev --functionsFile local",
+    "deploy": "serverless deploy --stage",
+    "deploy:tarjeta": "serverless deploy function -f tarjeta --stage",
+    "deploy:tokenizacion": "serverless deploy function -f tokenizacion --stage",
+    "test": "jest --coverage --maxWorkers=2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Colocar URL de repositorio"
+  },
+  "private": true,
+  "keywords": [
+    "culqi",
+    "tokenizacion",
+    "boveda"
+  ],
+  "author": "Luis Ricardo Luna Soto",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "7.21.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.20.0",
+    "jest": "27.2.3",
+    "serverless": "3.22.0",
+    "serverless-offline": "^11.0.1",
+    "serverless-plugin-reducer": "^4.0.1"
+  },
+  "dependencies": {
+    "@hapi/joi": "17.1.1",
+    "@hapi/joi-date": "2.0.0",
+    "@middy/core": "1.0.0",
+    "aws-crt": "1.10.2",
+    "aws-sdk": "^2.995.0",
+    "aws-xray-sdk": "^3.3.3",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.34"
+  }
+}

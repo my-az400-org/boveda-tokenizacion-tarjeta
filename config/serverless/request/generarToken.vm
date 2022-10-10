@@ -1,0 +1,70 @@
+#define( $loop )
+  #foreach($key in $map.keySet())
+    #set( $k = $util.escapeJavaScript($key) )
+    #set( $v = $util.escapeJavaScript($map.get($key)).replaceAll("\\'", "'") )
+    "$k": "$v"
+    #if( $foreach.hasNext ) , #end
+  #end
+#end
+
+{
+  "origin": "API_GATEWAY_REST_EVENT",
+  "action": "generarToken",
+  #set( $body = $input.json("$") )
+  "body": $body,
+  #set( $map = $input.params().header )
+  "headers": {
+    $loop
+  },
+  #set( $map = $input.params().querystring )
+  "query": {
+    $loop
+  },
+  #set( $map = $input.params().path )
+  "path": {
+    $loop
+  },
+  "accountId": "$context.accountId",
+  "apiId": "$context.apiId",
+  "authorizer": {
+    "principalId": "$context.authorizer.principalId",
+    "claims": {
+      #set( $map = $context.authorizer.claims )
+      $loop
+    },
+    "context": {
+      #set( $map = $context.authorizer )
+      $loop
+    }
+  },
+  "awsEndpointRequestId": "$context.awsEndpointRequestId",
+  "domainName": "$context.domainName",
+  "domainPrefix": "$context.domainPrefix",
+  "error": {
+    #set( $map = $context.error )
+    $loop
+  },
+  "extendedRequestId": "$context.extendedRequestId",
+  "httpMethod": "$context.httpMethod",
+  "identity": {
+    "apiKey": "$context.identity.apiKey",
+    "apiKeyId": "$context.identity.apiKeyId",
+    #set( $map = $context.identity )
+    $loop
+  },
+  "stageVariables": {
+    #set( $map = $stageVariables )
+    $loop
+  },
+  "requestPath": "$context.path",
+  "protocol": "$context.protocol",
+  "requestId": "$context.requestId",
+  "requestTime": "$context.requestTime",
+  "requestTimeEpoch": "$context.requestTimeEpoch",
+  "resourceId": "$context.resourceId",
+  "resourcePath": "$context.resourcePath",
+  "stage": "$context.stage",
+  "wafResponseCode": "$context.wafResponseCode",
+  "webaclArn": "$context.webaclArn",
+  "xrayTraceId": "$context.xrayTraceId"
+}

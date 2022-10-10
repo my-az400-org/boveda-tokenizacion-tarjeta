@@ -1,0 +1,35 @@
+# secrets
+secrets: ${file(secrets.json)}
+
+# Commons
+accountId:
+  dev: 484024112119 # Una buena práctica seria colocarlo en un Parameter Store
+  qas: 484024112119
+  prd: 484024112119
+functionsFile: ${opt:functionsFile, 'local'}
+defaultStage: dev
+currentStage: ${file(config/serverless/sls-helper.js):getCurrentStage}
+
+# Regions code and abbreviation
+regions:
+  code:
+    dev: us-east-1
+    qas: us-east-1
+    prd: us-east-1
+  abrev:
+    dev: UE1
+    qas: UE1
+    prd: UE1
+
+# Bucket
+# Deployment bucket
+deploymentBucket:
+  dev: dev-luuna-serverless-deployment-s3
+  qas: qas-luuna-serverless-deployment-s3
+  prd: prd-luuna-serverless-deployment-s3
+
+# Lambda's role TODO:
+role:
+  dev: arn:aws:iam::${self:custom.accountId.dev}:role/dev-luuna-lambda-role
+  qas: arn:aws:iam::${self:custom.accountId.qas}:role/qas-luuna-lambda-role
+  prd: arn:aws:iam::${self:custom.accountId.prd}:role/prd-luuna-lambda-role

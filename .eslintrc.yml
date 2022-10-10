@@ -1,0 +1,21 @@
+extends:
+  - airbnb-base
+  - plugin:jest/recommended
+rules:
+  eqeqeq: 0
+  no-await-in-loop: 0
+  no-restricted-syntax: 0
+  no-plusplus: 0
+  arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }]
+  no-underscore-dangle: 0
+  no-console: 'off'
+  no-new: 'off'
+  linebreak-style: ["error", "windows"]
+  comma-dangle: ["error", "never"]
+  # comma-dangle: ["error", "always-multiline"]
+  no-mixed-spaces-and-tabs: ["error", "smart-tabs"]
+  object-shorthand: ["error", "always", { "avoidExplicitReturnArrows": true, "ignoreConstructors": true }]
+  max-len: ["error", { "code": 1000 }]
+  no-use-before-define: ["error", { "functions": false }]
+  import/no-extraneous-dependencies: "off"
+  no-tabs: 0

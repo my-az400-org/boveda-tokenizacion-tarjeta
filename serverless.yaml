@@ -1,0 +1,43 @@
+service: boveda-culqi-test
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 512
+  timeout: 30
+  versionFunctions: false
+  stage: ${opt:stage, self:custom.defaultStage}
+  region: ${self:custom.regions.code.${opt:stage}}
+  logRetentionInDays: 7
+  role: ${self:custom.role.${opt:stage}}
+  endpointType: regional
+  tracing:
+    apiGateway: true
+    lambda: true
+  deploymentBucket:
+    name: ${self:custom.deploymentBucket.${opt:stage}}
+    serverSideEncryption: AES256
+  deploymentPrefix: serverless
+  # Al comentar lo de abajo, el API Gateway se generará sólo
+  # apiGateway:
+  #   restApiId: ${self:custom.restApiId.${opt:stage}}
+  #   restApiRootResourceId: ${self:custom.restApiRootResourceId.${opt:stage}}
+  #   metrics: true
+  environment:
+    SERVICE: execute-api
+    REGION: ${self:provider.region}
+    STAGE: ${self:provider.stage}
+    LOG_LEVEL: "INFO"
+    # Lo ideal es guardar lo sgte en parameter store
+    DYNAMODB_TABLE_VAULT: ${self:custom.secrets.DYNAMODB_TABLE_VAULT}
+    # JWT_SECRET: ${self:custom.secrets.JWT_SECRET}
+    # MYSQL_HOST: ${self:custom.secrets.MYSQL_HOST}
+    # MYSQL_DATABASE: ${self:custom.secrets.MYSQL_DATABASE}
+    # MYSQL_USERNAME: ${self:custom.secrets.MYSQL_USERNAME}
+    # MYSQL_PASSWORD: ${self:custom.secrets.MYSQL_PASSWORD}
+
+custom: ${file(config/serverless/common-custom-config.yaml)}
+plugins:
+  - serverless-plugin-reducer
+  - serverless-offline
+
+functions: ${file(config/serverless/functions.yaml)}
