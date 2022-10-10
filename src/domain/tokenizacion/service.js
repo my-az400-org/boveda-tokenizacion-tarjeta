@@ -27,48 +27,30 @@ module.exports = {
         );
       }
       // validar algoritmo luhn
-      if (ServiceSupport.isValidLuhn(cardNumber)) {
-        errorMessage = 'Tarjeta no cumple con algoritmo Luhn.';
-        throw new CustomException(
-          ERROR_FUNCIONAL.code, ERROR_FUNCIONAL.message, [errorMessage], {}, ERROR_FUNCIONAL.httpCode
-        );
-      }
+      // if (ServiceSupport.isValidLuhn(cardNumber)) {
+      //   errorMessage = 'Tarjeta no cumple con algoritmo Luhn.';
+      //   throw new CustomException(
+      //     ERROR_FUNCIONAL.code, ERROR_FUNCIONAL.message, [errorMessage], {}, ERROR_FUNCIONAL.httpCode
+      //   );
+      // }
       // validar hasta 5 años despues del año actual
       const anioActual = moment().format('YYYY');
-      const anioMaxValid = anioActual + DomainConstant.CREDIT_CARD.MAX_VALUE_ANIOS;
-      if (expirationYear > anioMaxValid) {
+      const anioMaxValid = Number(anioActual) + DomainConstant.CREDIT_CARD.MAX_VALUE_ANIOS;
+      if (Number(expirationYear) > anioMaxValid) {
         errorMessage = 'El año se encuentra fuera de rango de periodo máximo establecido.';
         throw new CustomException(
           ERROR_FUNCIONAL.code, ERROR_FUNCIONAL.message, [errorMessage], {}, ERROR_FUNCIONAL.httpCode
         );
       }
 
-      // const { email, cardNumber, cvv, expirationYear, expirationMonth } = event;
-      // const result = await DataAccess.getUsuarioPorUsername({ username: event.username });
-      // if (!result) {
-      //   errorMessage = 'Usuario no existe en base de datos.';
-      //   throw new CustomException(
-      //     ERROR_FUNCIONAL.code, ERROR_FUNCIONAL.message, [errorMessage], {}, ERROR_FUNCIONAL.httpCode
-      //   );
-      // }
-      // const isValidPassword = await bcrypt.compare(event.password, result.password);
-      // console.log('event.password: ', event.password);
-      // console.log('result.password: ', result.password);
-      // console.log('isValidPassword: ', isValidPassword);
-      // if (!isValidPassword) {
-      //   errorMessage = 'La contraseña del usuario es incorrecta. Intente nuevamente.';
-      //   throw new CustomException(
-      //     ERROR_FUNCIONAL.code, ERROR_FUNCIONAL.message, [errorMessage], {}, ERROR_FUNCIONAL.httpCode
-      //   );
-      // }
-      // const secret = Buffer.from(process.env.JWT_SECRET, 'base64');
-      // const tokenJWT = await jwt.sign({ email: result.email, id: result.id, rol: result.tipoUsuario }, secret, {
-      //   expiresIn: 86400 // expira en 24 horas
-      // });
-      // const token = await signToken(user);
       const tokenGenerated = ServiceSupport.generarTokenTarjeta(16);
+      const nowTime = moment();
+      const expirationTime = nowTime.add(15, 'minutes');
+      const tlsGenerated = expirationTime.valueOf();
+      console.log('tlsGenerated::: ', tlsGenerated);
       const infoTarjeta = {
         token: tokenGenerated,
+        tls: tlsGenerated, // expiracion del registro
         ...event
       };
       const result = await DataAccess.guardarInfoTarjeta(infoTarjeta);

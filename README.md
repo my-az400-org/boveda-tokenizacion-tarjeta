@@ -24,9 +24,10 @@ Prueba Técnica Boveda Culqi
 > npm run lint
 
 ## Tecnologias y teorias aplicadas
-- Paradigma arquitectónico: __Domain Driven Design - DDD__
+- Paradigma arquitectónico: __Domain Driven Design (DDD)__
 - Arquitectura sin servidor: __AWS Lambda__
 - Framework de arquitectura sin servidor: __Serverless Framework 3.22.0__
+- Base de Datos no relacional: __DynamoDB__
 - Exposición de los servicios: __AWS API Gateway__
 - Ejecución de pruebas unitarias: __Jest 27.2.3__
 - Herramienta de verificación de código: __EsLint 7.21.0__
@@ -34,12 +35,12 @@ Prueba Técnica Boveda Culqi
 ## Base y paths del proyecto
 
 #### Link base
-https://5sk7w5ptx9.execute-api.us-east-1.amazonaws.com/dev
+https://efitnyuhd0.execute-api.us-east-1.amazonaws.com/dev
 
 #### Paths:
 
 Dominio de Tokenizacion:
-  token/generar
+  - token/generar
 
 Dominio de Tarjetas:
-  tarjeta/obtener
+  - tarjeta/obtener

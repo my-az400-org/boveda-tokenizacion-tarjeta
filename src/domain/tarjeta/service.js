@@ -25,8 +25,13 @@ module.exports = {
           ErrorConstant.ERROR_FUNCIONAL.httpCode
         );
       }
-      const infoTarjeta = dataTarjeta[0];
-      delete infoTarjeta.ccv;
+      const { expirationYear, expirationMonth, cardNumber, email } = dataTarjeta[0];
+      const infoTarjeta = {
+        expirationYear,
+        expirationMonth,
+        cardNumber,
+        email,
+      };
       return MapperSupport.mapperDataResponse(infoTarjeta);
     } catch (err) {
       console.error(err);

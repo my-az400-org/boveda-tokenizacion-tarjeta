@@ -34,5 +34,5 @@ module.exports = {
       msj: data.length === 0 ? RESPONSE_MENSAJES.EMPTY_DATA_LIST : RESPONSE_MENSAJES.FULL_DATA_LIST
     };
     return response;
-  }
+  },
 };
